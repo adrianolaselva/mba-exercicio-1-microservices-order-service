@@ -6,12 +6,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Slf4j
-@RestController("orders")
+@RestController
+@RequestMapping("orders")
 public class OrderController {
 
+    @GetMapping()
+    public ResponseEntity<ArrayList<OrderDTO>> all(){
+
+        log.info("All orders");
+
+        ArrayList<OrderDTO> orders = new ArrayList<>();
+
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
     @GetMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> findById(@PathVariable("uuid") String uuid){
+    public ResponseEntity<OrderDTO> findById(@PathVariable(value = "uuid", required = true) String uuid){
 
         log.info("Load order {}", uuid);
 
@@ -20,7 +33,7 @@ public class OrderController {
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<OrderDTO> save(@RequestBody OrderDTO orderDTO){
 
         log.info("Save order {}", orderDTO);

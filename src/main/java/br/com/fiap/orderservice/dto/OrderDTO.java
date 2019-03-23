@@ -30,8 +30,8 @@ public class OrderDTO {
     private BigDecimal price;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    private Calendar dateTime;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Calendar date;
     private PaymentDTO payment = new PaymentDTO();
     private ArrayList<OrderItemDTO> items = new ArrayList<>();
 }
