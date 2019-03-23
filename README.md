@@ -2,12 +2,15 @@
 # Exercício 1 microserviços
 
 
+<<<<<<< HEAD
 ## Inicializar projeto
 
 ```sh
 mvn sprint-boot:run
 ```
 
+=======
+>>>>>>> 8fa9dd502439a817d816d63b71e38e6270fe8538
 ## Pedidos
 
 #### Listar
