@@ -25,7 +25,7 @@ public class PaymentDTO {
     @NotNull(message = "Campo 'expDate' obrigatório")
     private String expDate;
     @NotNull(message = "Campo 'cvv' obrigatório")
-    @Size(min = 3, max = 3)
+    @Size(min=3, max=3)
     private String cvv;
     @Digits(integer=5, fraction=2)
     private BigDecimal price;
