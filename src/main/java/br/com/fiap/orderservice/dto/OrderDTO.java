@@ -10,6 +10,7 @@ package br.com.fiap.orderservice.dto;
 import br.com.fiap.orderservice.enums.OrderStatus;
 import br.com.fiap.orderservice.enums.PaymentMethod;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class OrderDTO {
     private BigDecimal price;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Calendar dateTime;
     private PaymentDTO payment = new PaymentDTO();
     private ArrayList<OrderItemDTO> items = new ArrayList<>();
