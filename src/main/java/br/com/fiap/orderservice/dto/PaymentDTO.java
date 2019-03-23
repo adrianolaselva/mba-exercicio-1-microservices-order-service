@@ -12,6 +12,7 @@ import br.com.fiap.orderservice.enums.TransactionType;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -20,8 +21,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PaymentDTO {
     private Brand brand;
+    private TransactionType transactionType;
     private String cardNumber;
     private String expDate;
     private String cvv;
     private BigDecimal price;
+    private String uuidAcquirerTransaction;
 }
