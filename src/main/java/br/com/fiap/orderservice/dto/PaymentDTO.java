@@ -1,16 +1,10 @@
 package br.com.fiap.orderservice.dto;
 
-//Crie um endpoint chamado findById que receba um id do pedido e retorne
-//        objeto DTO Order com os seguintes atributos caso encontrado. email, Nome
-//        completo e shipping address, id do pedido, descrição de cada item do pedido,
-//        quantidade de itens do pedido, preço unitário de cada item, preço total do
-//        pagamento, forma de pagamento, data do pedido e status do pedido. Adicione
-//        também os atributos de pagamento como id da transação, número do cartão,
-
 import br.com.fiap.orderservice.enums.Brand;
 import br.com.fiap.orderservice.enums.TransactionType;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -20,10 +14,15 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO {
+    @NotNull(message = "Campo 'brand' obrigatório")
     private Brand brand;
+    @NotNull(message = "Campo 'transactionType' obrigatório")
     private TransactionType transactionType;
+    @NotNull(message = "Campo 'cardNumber' obrigatório")
     private String cardNumber;
+    @NotNull(message = "Campo 'expDate' obrigatório")
     private String expDate;
+    @NotNull(message = "Campo 'cvv' obrigatório")
     private String cvv;
     private BigDecimal price;
     private String uuidAcquirerTransaction;

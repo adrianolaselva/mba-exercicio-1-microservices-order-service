@@ -1,17 +1,14 @@
 package br.com.fiap.orderservice.dto;
 
-//Crie um endpoint chamado findById que receba um id do pedido e retorne
-//        objeto DTO Order com os seguintes atributos caso encontrado. email, Nome
-//        completo e shipping address, id do pedido, descrição de cada item do pedido,
-//        quantidade de itens do pedido, preço unitário de cada item, preço total do
-//        pagamento, forma de pagamento, data do pedido e status do pedido. Adicione
-//        também os atributos de pagamento como id da transação, número do cartão,
-
 import br.com.fiap.orderservice.enums.OrderStatus;
 import br.com.fiap.orderservice.enums.PaymentMethod;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,11 +20,20 @@ import java.util.Calendar;
 @AllArgsConstructor
 public class OrderDTO {
     private String uuid;
+    @NotNull(message = "Campo 'email' obrigatório")
+    @Email
     private String email;
+    @NotNull(message = "Campo 'fullName' obrigatório")
+    @Size(min = 3, max = 90)
     private String fullName;
+    @NotNull(message = "Campo 'shippingAddress' obrigatório")
+    @Size(min = 3, max = 120)
     private String shippingAddress;
+    @NotNull(message = "Campo 'quantity' obrigatório")
     private Integer quantity;
+    @Digits(integer=5, fraction=2)
     private BigDecimal price;
+    @NotNull(message = "Campo 'paymentMethod' obrigatório")
     private PaymentMethod paymentMethod;
     private OrderStatus status;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
