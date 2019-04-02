@@ -20,7 +20,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(OrderNotFoundException.class)
-    public final ResponseEntity<Object> handleEntityNotFound(OrderNotFoundException ex, WebRequest request) {
+    public final ResponseEntity<Object> handleEntityNotFound(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 

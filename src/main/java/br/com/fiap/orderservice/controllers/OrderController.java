@@ -16,8 +16,12 @@ import java.util.ArrayList;
 @RequestMapping("orders")
 public class OrderController {
 
+    private final OrderRepository orderRepository;
+
     @Autowired
-    private OrderRepository orderRepository;
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @GetMapping()
     public ResponseEntity<ArrayList<OrderDTO>> all(){
