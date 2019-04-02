@@ -31,7 +31,7 @@ public class OrderController {
 
         log.info("Load order {}", uuid);
 
-        if(uuid.isEmpty())
+        if(uuid != "e442a9e68eb2d051adcc6af6f8a56c54c92279be")
             throw new OrderNotFoundException("Ordem de serviço não encontrada");
 
         OrderDTO orderDTO = new OrderDTO();
@@ -48,11 +48,11 @@ public class OrderController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> update(@PathVariable("uuid") String uuid, @RequestBody OrderDTO orderDTO) throws EntityNotFoundException {
+    public ResponseEntity<OrderDTO> update(@PathVariable("uuid") String uuid, @RequestBody OrderDTO orderDTO) throws Exception {
 
         log.info("Update order {} {}", uuid, orderDTO);
 
-        if(uuid.isEmpty())
+        if(uuid != "e442a9e68eb2d051adcc6af6f8a56c54c92279be")
             throw new EntityNotFoundException("Registro inválido");
 
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);

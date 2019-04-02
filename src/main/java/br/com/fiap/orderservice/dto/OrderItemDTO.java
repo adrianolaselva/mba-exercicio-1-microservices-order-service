@@ -17,4 +17,9 @@ public class OrderItemDTO {
     private String description;
     @Digits(integer=5, fraction=2)
     private BigDecimal price;
+
+    public OrderItemDTO(String description, BigDecimal price) {
+        this.description = description;
+        this.price = price;
+    }
 }

@@ -30,4 +30,19 @@ public class PaymentDTO {
     @Digits(integer=5, fraction=2)
     private BigDecimal price;
     private String uuidAcquirerTransaction;
+
+    public PaymentDTO(
+            Brand brand,
+            TransactionType transactionType,
+            String cardNumber,
+            String expDate,
+            String cvv,
+            BigDecimal price) {
+        this.brand = brand;
+        this.transactionType = transactionType;
+        this.cardNumber = cardNumber;
+        this.expDate = expDate;
+        this.cvv = cvv;
+        this.price = price;
+    }
 }

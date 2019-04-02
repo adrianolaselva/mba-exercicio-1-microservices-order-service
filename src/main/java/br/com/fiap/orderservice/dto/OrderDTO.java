@@ -41,4 +41,23 @@ public class OrderDTO {
     private Calendar date;
     private PaymentDTO payment = new PaymentDTO();
     private ArrayList<OrderItemDTO> items = new ArrayList<>();
+
+    public OrderDTO(
+            String email,
+            String fullName,
+            String shippingAddress,
+            Integer quantity,
+            BigDecimal price,
+            Calendar date,
+            PaymentDTO payment,
+            ArrayList<OrderItemDTO> items) {
+        this.email = email;
+        this.fullName = fullName;
+        this.shippingAddress = shippingAddress;
+        this.quantity = quantity;
+        this.price = price;
+        this.date = date;
+        this.payment = payment;
+        this.items = items;
+    }
 }
