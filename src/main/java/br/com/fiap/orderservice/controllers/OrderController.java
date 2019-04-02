@@ -1,6 +1,9 @@
 package br.com.fiap.orderservice.controllers;
 
 import br.com.fiap.orderservice.dto.OrderDTO;
+import br.com.fiap.orderservice.exceptions.EntityNotFoundException;
+import br.com.fiap.orderservice.exceptions.ExceptionResponse;
+import br.com.fiap.orderservice.exceptions.OrderNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,9 @@ public class OrderController {
 
         log.info("Load order {}", uuid);
 
+        if(uuid.isEmpty())
+            throw new OrderNotFoundException("Ordem de serviço não encontrada");
+
         OrderDTO orderDTO = new OrderDTO();
 
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
@@ -42,9 +48,12 @@ public class OrderController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> update(@PathVariable("uuid") String uuid, @RequestBody OrderDTO orderDTO){
+    public ResponseEntity<OrderDTO> update(@PathVariable("uuid") String uuid, @RequestBody OrderDTO orderDTO) throws EntityNotFoundException {
 
         log.info("Update order {} {}", uuid, orderDTO);
+
+        if(uuid.isEmpty())
+            throw new EntityNotFoundException("Registro inválido");
 
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
     }
