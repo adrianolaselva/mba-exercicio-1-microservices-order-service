@@ -11,16 +11,16 @@ import java.time.LocalDateTime;
 @RestController
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+    @ExceptionHandler(ServerException.class)
+    public final ResponseEntity<Object> handleAllExceptions(ServerException ex, WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public final ResponseEntity<Object> handleEntityNotFound(Exception ex, WebRequest request) {
+    @ExceptionHandler(OrderNotFoundException.class)
+    public final ResponseEntity<Object> handleEntityNotFound(OrderNotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 

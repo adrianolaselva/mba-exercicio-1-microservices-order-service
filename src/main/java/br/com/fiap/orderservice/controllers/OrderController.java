@@ -1,10 +1,10 @@
 package br.com.fiap.orderservice.controllers;
 
 import br.com.fiap.orderservice.dto.OrderDTO;
-import br.com.fiap.orderservice.exceptions.EntityNotFoundException;
-import br.com.fiap.orderservice.exceptions.ExceptionResponse;
 import br.com.fiap.orderservice.exceptions.OrderNotFoundException;
+import br.com.fiap.orderservice.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,27 +16,31 @@ import java.util.ArrayList;
 @RequestMapping("orders")
 public class OrderController {
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @GetMapping()
     public ResponseEntity<ArrayList<OrderDTO>> all(){
 
         log.info("All orders");
 
-        ArrayList<OrderDTO> orders = new ArrayList<>();
+        ArrayList<OrderDTO> orders = this.orderRepository.all();
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> findById(@PathVariable(value = "uuid", required = true) String uuid){
+    public ResponseEntity<OrderDTO> findById(@PathVariable(value = "uuid", required = true) String uuid) throws OrderNotFoundException {
 
         log.info("Load order {}", uuid);
 
-        if(uuid != "e442a9e68eb2d051adcc6af6f8a56c54c92279be")
-            throw new OrderNotFoundException("Ordem de serviço não encontrada");
+        OrderDTO order = this.orderRepository.findById(uuid);
 
-        OrderDTO orderDTO = new OrderDTO();
+        if(order == null)
+            throw new OrderNotFoundException(OrderDTO.class, "uuid", uuid);
 
-        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @PostMapping()
@@ -44,24 +48,37 @@ public class OrderController {
 
         log.info("Save order {}", orderDTO);
 
-        return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
+        OrderDTO order = this.orderRepository.insert(orderDTO);
+
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> update(@PathVariable("uuid") String uuid, @RequestBody OrderDTO orderDTO) throws Exception {
+    public ResponseEntity<OrderDTO> update(@PathVariable("uuid") String uuid, @RequestBody OrderDTO orderDTO) throws OrderNotFoundException {
 
         log.info("Update order {} {}", uuid, orderDTO);
 
-        if(uuid != "e442a9e68eb2d051adcc6af6f8a56c54c92279be")
-            throw new EntityNotFoundException("Registro inválido");
+        OrderDTO order = this.orderRepository.findById(uuid);
 
-        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+        if(order == null)
+            throw new OrderNotFoundException(OrderDTO.class, "uuid", uuid);
+
+        order = this.orderRepository.update(uuid, order);
+
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> delete(@PathVariable("uuid") String uuid){
+    public ResponseEntity<OrderDTO> delete(@PathVariable("uuid") String uuid) throws OrderNotFoundException {
 
         log.info("Delete order {}", uuid);
+
+        OrderDTO order = this.orderRepository.findById(uuid);
+
+        if(order == null)
+            throw new OrderNotFoundException(OrderDTO.class, "uuid", uuid);
+
+        this.orderRepository.delete(uuid);
 
         return new ResponseEntity(uuid, HttpStatus.OK);
     }
