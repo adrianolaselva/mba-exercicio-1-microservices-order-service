@@ -8,7 +8,17 @@
 mvn sprint-boot:run
 ```
 
-mvn install dockerfile:build
+### Gerar container
+
+```sh
+./mvnw install dockerfile:build
+```
+
+### Rodar container
+
+```sh
+docker run -p 8000:8000 -t springio/payment-service
+```
 
 ## Pedidos
 
