@@ -3,6 +3,7 @@ package br.com.fiap.orderservice.controllers;
 import br.com.fiap.orderservice.dto.OrderDTO;
 import br.com.fiap.orderservice.exceptions.OrderNotFoundException;
 import br.com.fiap.orderservice.repository.OrderRepository;
+import com.wordnik.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 @Slf4j
 @RestController
 @RequestMapping("orders")
+@Api(value = "Order", description = "Order Service REST API")
 public class OrderController {
 
     private final OrderRepository orderRepository;
@@ -34,7 +36,17 @@ public class OrderController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<OrderDTO> findById(@PathVariable(value = "uuid", required = true) String uuid) throws OrderNotFoundException {
+    @ApiOperation(httpMethod = "GET", value = "Método get para buscar pedido filtrando por id")
+            @ApiResponses(value = {
+                    @ApiResponse(
+                            code = 200,
+                            message = "Retorna um OrderDTO com uma mensagem de sucesso",
+                            response = OrderDTO.class
+                    )
+    })
+    public ResponseEntity<OrderDTO> findById(
+            @ApiParam( value = "Order Id", required = true)
+            @PathVariable(value = "uuid", required = true) String uuid) throws OrderNotFoundException {
 
         log.info("Load order {}", uuid);
 
