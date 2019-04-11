@@ -66,6 +66,7 @@ public class OrderServiceApplicationTests {
 		));
 
 		mvc.perform(put("/orders/e442a9e68eb2d051adcc6af6f8a56c54c92279bf")
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonInString)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound());

@@ -8,6 +8,8 @@
 mvn sprint-boot:run
 ```
 
+mvn install dockerfile:build
+
 ## Pedidos
 
 #### Listar

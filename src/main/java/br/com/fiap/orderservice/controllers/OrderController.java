@@ -18,9 +18,9 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
 
-    @Autowired
-    public OrderController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+//    @Autowired
+    public OrderController() {
+        this.orderRepository = new OrderRepository();
     }
 
     @GetMapping()
